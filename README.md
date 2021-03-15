@@ -10,18 +10,18 @@ Updated and upgraded with *apt-get update && apt-get upgrade.*
 
 ## Network and Security Part
 
-I created user "tuomas". Debian doesn't have sudo installed by default so I had to install it: *apt-get install sudo -y.* After this, I had to give "tuomas" the proper permissions to actually use sudo: *usermod -aG sudo tuomas.*
+I created user "ninjapiraatti". Debian doesn't have sudo installed by default so I had to install it: *apt-get install sudo -y.* After this, I had to give "ninjapiraatti" the proper permissions to actually use sudo: *usermod -aG sudo ninjapiraatti.*
 
 -----
 
-With the sudo rights, "tuomas" was able to install apticron: *sudo apt-get install apticron*
+With the sudo rights, "ninjapiraatti" was able to install apticron: *sudo apt-get install apticron*
 
 -----
 
 To get rid of DHCP and attain a static IP I modified the /etc/network/interface primary network interface to following on my VM:
 
 iface enp0s3 inet static
-address 10.12.155.199
+address 10.0.2.15
 netmask 255.255.255.252
 gateway 10.12.254.254
 
@@ -29,7 +29,7 @@ The /30 is used to allow only minimal amount of IP addresses, in this case 2 - f
 
 -----
 
-Changed the default port at /etc/ssh/sshd_config. Uncommented the line with "Port" and changed 22 to 6666. After this, connected with ssh -p 6666 tuomas@10.12.155.199
+Changed the default port at /etc/ssh/sshd_config. Uncommented the line with "Port" and changed 22 to 6666. After this, connected with ssh -p 50005 ninjapiraatti@10.12.155.199
 
 -----
 
