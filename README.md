@@ -10,7 +10,7 @@ Updated and upgraded with *apt-get update && apt-get upgrade.*
 
 ## Network and Security Part
 
-I created user "ninjapiraatti". Debian doesn't have sudo installed by default so I had to install it: *apt-get install sudo -y.* After this, I had to give "ninjapiraatti" the proper permissions to actually use sudo: *usermod -aG sudo ninjapiraatti.*
+I created user "ninjapiraatti" with password debiandebian. Debian doesn't have sudo installed by default so I had to install it: *apt-get install sudo -y.* After this, I had to give "ninjapiraatti" the proper permissions to actually use sudo: *usermod -aG sudo ninjapiraatti.*
 
 -----
 
@@ -84,7 +84,7 @@ Then restarted firewall and fail2ban.
 Checked status of service: *sudo fail2ban-client status*
 
 Installed a tester: *sudo apt-get install slowhttptest*
-Ran it: *slowhttptest -c 500 -H -g -o ./output_file -i 10 -r 200 -t GET -u http://10.12.20.238 -x 24 -p 2*
+Ran it: *slowhttptest -c 500 -H -g -o ./output_file -i 10 -r 200 -t GET -u http://10.12.20.238 -x 24 -p 2* or after this setup just *slowhttptest*
 
 -----
 
@@ -112,7 +112,15 @@ sudo systemctl disable apparmor.service
 
 -----
 
-Read mail with: *sudo less /var/mail/ninjapiraatti*
+Script for updates is located in the home folder: ninja_update.sh
+
+-----
+
+Script for cronjob tamper alert is also located in the home folder: ninja_monitor.sh
+To see the mail it sends, go to mail folder *cd ~/mail/new* and see the timestamps
+
+Cronjob to run the updates can be seen with *crontab -e*
+Cronjob to run the monitor can be seen with *sudo vim /etc/crontab*
 
 
 
