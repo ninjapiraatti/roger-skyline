@@ -121,10 +121,3 @@ To see the mail it sends, go to mail folder *cd ~/mail/new* and see the timestam
 
 Cronjob to run the updates can be seen with *crontab -e*
 Cronjob to run the monitor can be seen with *sudo vim /etc/crontab*
-
-
-
-
-
-
-
