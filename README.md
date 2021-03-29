@@ -31,13 +31,15 @@ iface enp0s3 inet static
 
 -----
 
-Changed the default port at /etc/ssh/sshd_config. Uncommented the line with "Port" and changed 22 to 50005. Created a public key on the host machine: *ssh-keygen -t rsa*. Copied the keys to VM: *ssh-copy-id -i /c/Users/Tuomas/.ssh/id_rsa.pub ninjapiraatti@192.168.0.132 -p 50005*.
+Changed the default port at /etc/ssh/sshd_config. Uncommented the line with "Port" and changed 22 to 50010. Created a public key on the host machine: *ssh-keygen -t rsa*. Copied the keys to VM: *ssh-copy-id -i /c/Users/Tuomas/.ssh/id_rsa.pub ninjapiraatti@192.168.0.132 -p 50010*.
 
 Changed /etc/ssh/sshd_config to disallow root login: 
 PermitRootLogin no
 PasswordAuthentication no
 
-Restarted the ssh service with *sudo service sshd restart*. 
+Restarted the ssh service with *sudo service sshd restart*.
+
+Ran into problems and lo and behold, there was my host ip in *cat /etc/hosts.allow*. Had to do a new round of generating keys and copying them over to client, which was only possible after setting the password auth back to yes
 
 -----
 
@@ -45,7 +47,7 @@ Installed Uncomplicated firewall with *sudo apt-get install ufw*
 
 Made the rules:
 
-*ufw allow 50005/tcp* (ssh)
+*ufw allow 50010/tcp* (ssh)
 *ufw allow 80/tcp* (http)
 *ufw allow 443/tcp* (https)
 
@@ -84,7 +86,7 @@ Then restarted firewall and fail2ban.
 Checked status of service: *sudo fail2ban-client status*
 
 Installed a tester: *sudo apt-get install slowhttptest*
-Ran it: *slowhttptest -c 500 -H -g -o ./output_file -i 10 -r 200 -t GET -u http://10.12.20.238 -x 24 -p 2* or after this setup just *slowhttptest*
+Ran it: *slowhttptest -c 500 -H -g -o ./output_file -i 10 -r 200 -t GET -u http://192.168.0.132 -x 24 -p 2* or after this setup just *slowhttptest*
 
 -----
 
@@ -121,3 +123,8 @@ To see the mail it sends, go to mail folder *cd ~/mail/new* and see the timestam
 
 Cronjob to run the updates can be seen with *crontab -e*
 Cronjob to run the monitor can be seen with *sudo vim /etc/crontab*
+
+
+
+
+scp -P 50010 ninja_eval.sh ninjapiraatti@192.168.0.132:/home/ninjapiraatti
